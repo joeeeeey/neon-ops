@@ -1,0 +1,4 @@
+interface:
+  display_name: "Neon Ops"
+  short_description: "Inspect the branch behind the database. Preview the next change."
+  default_prompt: "Use $neon-ops to inspect the requested scope and report verified results."

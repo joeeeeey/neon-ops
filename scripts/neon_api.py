@@ -60,7 +60,13 @@ def make_url(path, params=None):
 
 def request_json(path, *, method="GET", params=None, body=None, timeout=30):
     token, _ = read_token()
-    return request(make_url(path, params), method=method, body=body, timeout=timeout, headers={"Authorization": "Bearer " + token})
+    return request(
+        make_url(path, params),
+        method=method,
+        body=body,
+        timeout=timeout,
+        headers={"Authorization": "Bearer " + token},
+    )
 
 
 def contains_secret_like_key(value: object) -> bool:
@@ -115,16 +121,31 @@ def summarize_payload(payload: object) -> object:
             if isinstance(payload.get(collection_key), list):
                 return {
                     "count": len(payload[collection_key]),
-                    "sample": [summarize_item(item) for item in payload[collection_key][:10]],
+                    "sample": [
+                        summarize_item(item) for item in payload[collection_key][:10]
+                    ],
                 }
-        for single_key in ("project", "branch", "endpoint", "operation", "database", "role"):
+        for single_key in (
+            "project",
+            "branch",
+            "endpoint",
+            "operation",
+            "database",
+            "role",
+        ):
             if isinstance(payload.get(single_key), dict):
                 return summarize_item(payload[single_key])
         if contains_secret_like_key(payload):
-            return {"keys": sorted(payload.keys()), "warning": "payload contains secret-like keys; raw output suppressed in summary"}
+            return {
+                "keys": sorted(payload.keys()),
+                "warning": "payload contains secret-like keys; raw output suppressed in summary",
+            }
         return {key: payload[key] for key in sorted(payload.keys())[:30]}
     if isinstance(payload, list):
-        return {"count": len(payload), "sample": [summarize_item(item) for item in payload[:10]]}
+        return {
+            "count": len(payload),
+            "sample": [summarize_item(item) for item in payload[:10]],
+        }
     return {"data_type": type(payload).__name__}
 
 
@@ -155,7 +176,12 @@ def cmd_validate(_args: argparse.Namespace) -> int:
         if ok:
             entry["summary"] = summarize_payload(payload)
         else:
-            entry["error"] = payload.get("message") or payload.get("error") or payload.get("detail") or payload
+            entry["error"] = (
+                payload.get("message")
+                or payload.get("error")
+                or payload.get("detail")
+                or payload
+            )
         results.append(entry)
 
     project_ok = any(item["label"] == "projects" and item["ok"] for item in results)
@@ -218,25 +244,33 @@ def cmd_mutate(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="Neon API helper for explicit account operations.")
+    parser = argparse.ArgumentParser(
+        description="Neon API helper for explicit account operations."
+    )
     sub = parser.add_subparsers(dest="command", required=True)
 
     doctor = sub.add_parser("doctor", help="Show local config without printing token")
     doctor.set_defaults(func=cmd_doctor)
 
-    validate = sub.add_parser("validate", help="Validate API key against Neon projects API")
+    validate = sub.add_parser(
+        "validate", help="Validate API key against Neon projects API"
+    )
     validate.set_defaults(func=cmd_validate)
 
     projects = sub.add_parser("projects", help="List Neon projects")
     projects.add_argument("--limit", type=int, default=20)
-    projects.add_argument("--param", action="append", default=[], help="Query parameter key=value")
+    projects.add_argument(
+        "--param", action="append", default=[], help="Query parameter key=value"
+    )
     projects.add_argument("--summary", action="store_true")
     projects.set_defaults(func=cmd_projects)
 
     for name in ("branches", "endpoints", "operations"):
         p = sub.add_parser(name, help=f"List project {name}")
         p.add_argument("--project-id", required=True)
-        p.add_argument("--param", action="append", default=[], help="Query parameter key=value")
+        p.add_argument(
+            "--param", action="append", default=[], help="Query parameter key=value"
+        )
         p.add_argument("--summary", action="store_true")
         p.set_defaults(func=cmd_project_collection)
 
@@ -244,21 +278,29 @@ def build_parser() -> argparse.ArgumentParser:
         p = sub.add_parser(name, help=f"List branch {name}")
         p.add_argument("--project-id", required=True)
         p.add_argument("--branch-id", required=True)
-        p.add_argument("--param", action="append", default=[], help="Query parameter key=value")
+        p.add_argument(
+            "--param", action="append", default=[], help="Query parameter key=value"
+        )
         p.add_argument("--summary", action="store_true")
         p.set_defaults(func=cmd_project_collection)
 
     get = sub.add_parser("get", help="GET an arbitrary Neon API path")
     get.add_argument("path")
-    get.add_argument("--param", action="append", default=[], help="Query parameter key=value")
+    get.add_argument(
+        "--param", action="append", default=[], help="Query parameter key=value"
+    )
     get.add_argument("--summary", action="store_true")
     get.set_defaults(func=cmd_get)
 
     for method in ("post", "patch", "put", "delete"):
-        p = sub.add_parser(method, help=f"{method.upper()} an arbitrary API path; dry-run by default")
+        p = sub.add_parser(
+            method, help=f"{method.upper()} an arbitrary API path; dry-run by default"
+        )
         p.add_argument("path")
         p.add_argument("--json-file", help="JSON request body file")
-        p.add_argument("--execute", action="store_true", help="Actually send the write request")
+        p.add_argument(
+            "--execute", action="store_true", help="Actually send the write request"
+        )
         p.set_defaults(func=cmd_mutate, method=method)
 
     return parser
@@ -270,7 +312,15 @@ def main(argv: list[str]) -> int:
     try:
         return args.func(args)
     except (SafeError, OSError, ValueError) as exc:
-        print("ERROR: " + (str(exc) if isinstance(exc, SafeError) else "Invalid input or file; sensitive details suppressed"), file=sys.stderr)
+        print(
+            "ERROR: "
+            + (
+                str(exc)
+                if isinstance(exc, SafeError)
+                else "Invalid input or file; sensitive details suppressed"
+            ),
+            file=sys.stderr,
+        )
         return 2
 
 

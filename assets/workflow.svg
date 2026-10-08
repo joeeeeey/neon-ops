@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500" role="img" aria-labelledby="nn-title nn-desc">
+<title id="nn-title">Neon Ops</title>
+<desc id="nn-desc">Branching map: a main branch forks into a preview branch, whose endpoint, database and role resources fan out as separate nodes. A small change preview lists a role and database to add, locked until authorization, and notes that this helper uses the Management API and does not run SQL.</desc>
+<style>
+.nn-s{font-family:"Avenir Next","Segoe UI","Helvetica Neue",Arial,sans-serif}
+.nn-m{font-family:ui-monospace,"SF Mono",Menlo,Consolas,"Courier New",monospace}
+.nn-run{stroke-dasharray:8 92;animation:nn-run 4s linear infinite}
+.nn-r2{animation-delay:-1.3s}.nn-r3{animation-delay:-2.6s}
+@keyframes nn-run{from{stroke-dashoffset:0}to{stroke-dashoffset:-100}}
+.nn-head{opacity:0;transform-box:fill-box;transform-origin:50% 50%;animation:nn-head 2.6s ease-out infinite}
+@keyframes nn-head{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+.nn-tile{transform-box:fill-box;transform-origin:50% 50%;animation:nn-tile 4s ease-in-out infinite}
+.nn-t2{animation-delay:.5s}.nn-t3{animation-delay:1s}
+@keyframes nn-tile{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+<rect width="1000" height="500" fill="#E8FFF3"/>
+<g stroke="#161B4D" stroke-opacity=".08" stroke-width="2"><line x1="0" y1="180" x2="1000" y2="180"/><line x1="0" y1="318" x2="1000" y2="318"/></g>
+
+<!-- header -->
+<text class="nn-s" x="36" y="78" font-size="56" font-weight="900" font-style="italic" fill="#161B4D" letter-spacing="-2">Neon <tspan fill="#00A35C">Ops</tspan></text>
+<text class="nn-s" x="36" y="110" font-size="18" font-weight="600" fill="#161B4D">Inspect the branch behind the database. Preview the next change.</text>
+<rect x="664" y="38" width="300" height="30" rx="15" fill="#161B4D"/>
+<text class="nn-s" x="814" y="58" font-size="13" font-weight="800" fill="#FFC21A" text-anchor="middle" letter-spacing=".4">ILLUSTRATIVE / SYNTHETIC DATA</text>
+
+<!-- main line + fork -->
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M60 180 H480" stroke="#4A1FB8" stroke-width="10"/>
+<path d="M170 180 C170 262 200 318 280 318 H400" stroke="#19D982" stroke-width="10"/>
+<path d="M400 318 H480" stroke="#19D982" stroke-width="6"/>
+<path d="M400 318 C440 318 440 250 480 250" stroke="#19D982" stroke-width="6"/>
+<path d="M400 318 C440 318 440 386 480 386" stroke="#19D982" stroke-width="6"/>
+</g>
+<!-- pulses -->
+<g fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round">
+<path class="nn-run" pathLength="100" d="M60 180 H480"/>
+<path class="nn-run nn-r2" pathLength="100" d="M170 180 C170 262 200 318 280 318 H400"/>
+<path class="nn-run nn-r3" pathLength="100" d="M400 318 C440 318 440 250 480 250"/>
+<path class="nn-run nn-r3" pathLength="100" d="M400 318 H480"/>
+<path class="nn-run nn-r3" pathLength="100" d="M400 318 C440 318 440 386 480 386"/>
+</g>
+
+<!-- stations -->
+<g fill="#fff" stroke="#161B4D" stroke-width="4">
+<circle cx="60" cy="180" r="12"/><circle cx="120" cy="180" r="9"/><circle cx="260" cy="180" r="9"/><circle cx="340" cy="180" r="9"/><circle cx="430" cy="180" r="9"/>
+<circle cx="170" cy="180" r="14" fill="#FFC21A"/>
+<circle cx="280" cy="318" r="9"/><circle cx="340" cy="318" r="9"/>
+</g>
+<circle class="nn-head" cx="400" cy="318" r="16" fill="none" stroke="#19D982" stroke-width="3"/>
+<circle cx="400" cy="318" r="16" fill="#19D982" stroke="#161B4D" stroke-width="4"/><circle cx="400" cy="318" r="5" fill="#fff"/>
+
+<!-- labels -->
+<rect x="40" y="132" width="76" height="28" rx="14" fill="#4A1FB8"/>
+<text class="nn-s" x="78" y="152" font-size="15" font-weight="800" fill="#fff" text-anchor="middle">main</text>
+<text class="nn-s" x="196" y="236" font-size="14" font-weight="800" fill="#161B4D">fork</text>
+<rect x="232" y="338" width="150" height="28" rx="14" fill="#19D982"/>
+<text class="nn-s" x="307" y="358" font-size="14" font-weight="800" fill="#161B4D" text-anchor="middle">preview-branch</text>
+
+<!-- tiles -->
+<rect x="480" y="154" width="170" height="52" rx="14" fill="#EDE6FF" stroke="#4A1FB8" stroke-width="3" stroke-dasharray="8 6"/>
+<text class="nn-s" x="498" y="177" font-size="15" font-weight="800" fill="#161B4D">main</text>
+<text class="nn-s" x="498" y="196" font-size="14" font-weight="700" fill="#4A1FB8">untouched</text>
+
+<g class="nn-tile">
+<rect x="480" y="224" width="170" height="52" rx="14" fill="#22D3EE" stroke="#161B4D" stroke-width="3"/>
+<circle cx="506" cy="250" r="11" fill="#fff" stroke="#161B4D" stroke-width="3"/><path d="M501 250 h10 M506 245 v10" stroke="#161B4D" stroke-width="3" stroke-linecap="round"/>
+<text class="nn-s" x="528" y="247" font-size="15" font-weight="800" fill="#161B4D">Endpoint</text><text class="nn-s" x="528" y="266" font-size="14" font-weight="700" fill="#161B4D">compute</text>
+</g>
+<g class="nn-tile nn-t2">
+<rect x="480" y="292" width="170" height="52" rx="14" fill="#FFC21A" stroke="#161B4D" stroke-width="3"/>
+<g fill="#fff" stroke="#161B4D" stroke-width="3"><path d="M495 312 v12 a11 5 0 0 0 22 0 v-12"/><ellipse cx="506" cy="312" rx="11" ry="5"/></g>
+<text class="nn-s" x="528" y="315" font-size="15" font-weight="800" fill="#161B4D">Database</text><text class="nn-m" x="528" y="334" font-size="14" font-weight="700" fill="#161B4D">app_db</text>
+</g>
+<g class="nn-tile nn-t3">
+<rect x="480" y="360" width="170" height="52" rx="14" fill="#FF9F1C" stroke="#161B4D" stroke-width="3"/>
+<g fill="#fff" stroke="#161B4D" stroke-width="3"><circle cx="506" cy="378" r="6"/><path d="M495 397 a11 9 0 0 1 22 0 z"/></g>
+<text class="nn-s" x="528" y="383" font-size="15" font-weight="800" fill="#161B4D">Role</text><text class="nn-m" x="528" y="402" font-size="14" font-weight="700" fill="#161B4D">app_reader</text>
+</g>
+
+<!-- steps ribbon -->
+<g class="nn-s" font-size="14" font-weight="800" fill="#161B4D">
+<rect x="36" y="432" width="214" height="34" rx="17" fill="#fff" stroke="#161B4D" stroke-width="2.5"/><circle cx="56" cy="449" r="10" fill="#4A1FB8"/><text x="56" y="454" fill="#fff" text-anchor="middle">1</text><text x="74" y="454">Read branch IDs</text>
+<rect x="260" y="432" width="186" height="34" rx="17" fill="#fff" stroke="#161B4D" stroke-width="2.5"/><circle cx="280" cy="449" r="10" fill="#19D982"/><text x="280" y="454" fill="#161B4D" text-anchor="middle">2</text><text x="298" y="454">Preview body</text>
+<rect x="456" y="432" width="194" height="34" rx="17" fill="#fff" stroke="#161B4D" stroke-width="2.5"/><circle cx="476" cy="449" r="10" fill="#007A6E"/><text x="476" y="454" fill="#fff" text-anchor="middle">3</text><text x="494" y="454">Check operation</text>
+</g>
+
+<!-- change preview -->
+<rect x="682" y="156" width="282" height="226" rx="20" fill="#161B4D"/>
+<rect x="676" y="150" width="282" height="226" rx="20" fill="#fff" stroke="#161B4D" stroke-width="3"/>
+<path d="M696 150 H938 Q958 150 958 170 V184 H676 V170 Q676 150 696 150 Z" fill="#4A1FB8"/>
+<text class="nn-s" x="692" y="173" font-size="15" font-weight="800" fill="#fff" letter-spacing="1">PREVIEW</text>
+<rect x="858" y="158" width="86" height="20" rx="10" fill="#FFC21A"/><text class="nn-s" x="901" y="173" font-size="13" font-weight="800" fill="#161B4D" text-anchor="middle">not sent</text>
+<g class="nn-m" font-size="14" font-weight="700">
+<text x="692" y="212" fill="#00867A">+ role      app_reader</text>
+<text x="692" y="236" fill="#00867A">+ database  app_db</text>
+<text x="692" y="260" fill="#00867A">+ endpoint  compute</text>
+<text x="692" y="284" fill="#5B6194">on preview-branch</text>
+</g>
+<line x1="692" y1="298" x2="942" y2="298" stroke="#161B4D" stroke-width="2" stroke-dasharray="5 5"/>
+<text class="nn-s" x="692" y="320" font-size="14" font-weight="800" fill="#D1281A">Authorize first, then</text>
+<rect x="692" y="332" width="170" height="30" rx="15" fill="#D7F2E3" stroke="#161B4D" stroke-width="2.5" stroke-dasharray="6 4"/>
+<text class="nn-m" x="777" y="352" font-size="14" font-weight="800" fill="#5B6194" text-anchor="middle">--execute: locked</text>
+
+<rect x="682" y="402" width="282" height="68" rx="20" fill="#161B4D"/>
+<rect x="676" y="396" width="282" height="68" rx="20" fill="#19D982"/>
+<text class="nn-s" x="692" y="422" font-size="16" font-weight="800" fill="#161B4D">Management API only</text>
+<text class="nn-s" x="692" y="446" font-size="14" font-weight="700" fill="#161B4D">No SQL run · secrets redacted</text>
+</svg>
